@@ -1,0 +1,9 @@
+If you want to run tests for CitiCards, you will need to place two files here called citi-accounts and citi-credentials.  These 
+should contain valid CitiCards account numbers and logins.
+
+Examples:
+citi-accounts:
+credit_card,XXXXXXXXXXXX0000
+
+citi-credentials:
+my_user_name,my_password

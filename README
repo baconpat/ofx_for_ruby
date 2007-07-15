@@ -1,0 +1,5 @@
+OFX for Ruby is a pure Ruby implementation of Open Financial Exchange specifications (1.0.2 through 2.1.1) for building both financial 
+clients and servers, providing parsers/serializers for each version, and a uniform object model across all versions.
+
+Copyright © 2007 Chris Guidry <chrisguidry@gmail.com>.
+OFX for Ruby is distributed under the GNU Public License, version 3.  See COPYING for more information.

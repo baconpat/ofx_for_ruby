@@ -1,0 +1,10 @@
+If you want to run tests for Capital One, you will need to place two files here called capital-one-accounts and capital-one-credentials.  These 
+should contain valid Capital One account numbers and logins.
+
+Examples:
+capital-one-accounts:
+checking,123123123
+savings,456456456
+
+capital-one-credentials:
+my_user_name,my_password
