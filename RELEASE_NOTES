@@ -1,9 +1,13 @@
-OFX for Ruby is a pure Ruby implementation of Open Financial Exchange specifications (1.0.2 through 2.1.1) for building both financial 
-clients and servers, providing parsers/serializers for each version, and a uniform object model across all versions.
+OFX for Ruby
+currently at version 0.1.0
 
-Copyright © 2007 Chris Guidry <chrisguidry@gmail.com>.
-OFX for Ruby is distributed under the GNU Public License, version 3.  See COPYING for more information.
+==============================================================================
 
+version 0.1.0
+2007.07.15
+first public release
+<svn://rubyforge.org/var/svn/ofx/tags/ofx-0.1.0>
+Chris Guidry <chrisguidry@gmail.com>
 
 Discovering Financial Institution connection information:
 There is currently no discovery mechanism within OFX for Ruby for acquiring financial institution connection information from any partner servers (although this is planned in the future).  Finding out this information is currently a manual process, but is greatly facilitated with either the ofxconnect utility from libofx <http://libofx.sourceforge.net/> or the information available at <http://wiki.gnucash.org/wiki/OFX_Direct_Connect_Bank_Settings>.
@@ -37,3 +41,5 @@ test - the almighty unit test suite (see "Running Unit Tests", above)
 COPYING - the GPLv3
 README - this file
 RELEASE_NOTES - a play-by-play of each OFX for Ruby release (Hint: the 0.1.0 RELEASE_NOTES are the same as this README)
+
+==============================================================================
