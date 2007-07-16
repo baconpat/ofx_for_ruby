@@ -37,3 +37,7 @@ test - the almighty unit test suite (see "Running Unit Tests", above)
 COPYING - the GPLv3
 README - this file
 RELEASE_NOTES - a play-by-play of each OFX for Ruby release (Hint: the 0.1.0 RELEASE_NOTES are the same as this README)
+
+
+Mailing Lists:
+ofx-commits@rubyforge.org - notifications of each commit to the OFX tree
