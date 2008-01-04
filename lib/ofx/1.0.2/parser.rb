@@ -19,7 +19,7 @@ module OFX
 
     class Parser < Racc::Parser
 
-module_eval <<'..end ofx_102.racc modeval..id6087639205', 'ofx_102.racc', 48
+module_eval <<'..end ofx_102.racc modeval..id27fab4d94c', 'ofx_102.racc', 48
 
 attr :documents
 attr :ofx_hashes
@@ -62,7 +62,7 @@ def end_tag(tag_name)
     end
 end
 
-..end ofx_102.racc modeval..id6087639205
+..end ofx_102.racc modeval..id27fab4d94c
 
 ##### racc 1.4.5 generates ###
 
