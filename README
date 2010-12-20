@@ -1,3 +1,7 @@
+This is a fork of the "OFX for Ruby" project developed by Chris Guidry <chrisguidry@gmail.com> and hosted on Rubyforge: http://rubyforge.org/projects/ofxget/. That repository has not been updated since early 2008.
+
+---------------------------------------
+
 OFX for Ruby is a pure Ruby implementation of Open Financial Exchange specifications (1.0.2 through 2.1.1) for building both financial 
 clients and servers, providing parsers/serializers for each version, and a uniform object model across all versions.
 
