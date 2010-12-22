@@ -55,7 +55,7 @@ module OFX
             end
 
             def from_http_response_body(body)
-                header_pattern = /(\w+\:.*\n)+\n/
+                header_pattern = /(\w+\:.*\n)+/
                 header_match = header_pattern.match(body)
                 
                 body = header_match.post_match
@@ -88,7 +88,7 @@ class Date
 end
 class DateTime
     def to_ofx_102_s
-        strftime('%Y%m%d%H%M%S.') + (sec_fraction * 86400000000).to_i.to_s + '[' + offset.numerator.to_s + ':' + strftime('%Z') + ']'
+        strftime('%Y%m%d%H%M%S')
     end
 end
 class String

@@ -22,7 +22,7 @@ module OFX
         end
 
         def to_s
-            @timestamp.strftime('%Y%m%d%H%M%S.') + (@timestamp.sec_fraction * 86400000000).to_i.to_s
+            @timestamp.strftime('%Y%m%d%H%M%S')
         end
     end
 end

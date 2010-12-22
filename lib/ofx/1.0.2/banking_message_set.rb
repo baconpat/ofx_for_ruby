@@ -106,13 +106,15 @@ module OFX
     
     class BankingAccount
         def to_ofx_102_request_body
-            "        <BANKACCTFROM>\n" +
-            "          <BANKID>#{bank_identifier}\n" +
-            "          <BRANCHID>#{branch_identifier}\n" +
-            "          <ACCTID>#{account_identifier}\n" +
-            "          <ACCTTYPE>#{BankingAccount.account_type_to_ofx_102_s(account_type)}\n" +
-            "          <ACCTKEY>#{account_key}\n" +
-            "        </BANKACCTFROM>\n"
+            body = []
+            body << "        <BANKACCTFROM>"
+            body << "          <BANKID>#{bank_identifier}"
+            body << "          <BRANCHID>#{branch_identifier}" if branch_identifier
+            body << "          <ACCTID>#{account_identifier}"
+            body << "          <ACCTTYPE>#{BankingAccount.account_type_to_ofx_102_s(account_type)}"
+            body << "          <ACCTKEY>#{account_key}" if account_key
+            body << "        </BANKACCTFROM>"
+            body.join("\n")
         end
         
         def self.ofx_102_s_to_account_type(account_type)
@@ -157,12 +159,13 @@ module OFX
             body += account.to_ofx_102_request_body
             
             body +=
-            "        <INCTRAN>\n" +
-            "          <INCLUDE>#{include_transactions.to_ofx_102_s}\n" if include_transactions
+            "        <INCTRAN>\n"
             
             body +=
             "          <DTSTART>#{included_range.begin.to_ofx_102_s}\n" +
             "          <DTEND>#{included_range.end.to_ofx_102_s}\n" if included_range
+            body +=
+            "          <INCLUDE>#{include_transactions.to_ofx_102_s}\n" if include_transactions
             
             body +=
             "        </INCTRAN>" if include_transactions
