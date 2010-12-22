@@ -1,0 +1,5 @@
+.bundle
+Gemfile.lock
+test/citi/fixtures/citi-accounts
+test/citi/fixtures/citi-credentials
+pkg

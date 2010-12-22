@@ -48,10 +48,28 @@ task :default => [:coverage, :rdoc]
 
 desc "recreates parsers"
 task :parsers do
-    sh "cd lib/ofx/1.0.2; rex -o lexer.rb ofx_102.rex"
-    sh "cd lib/ofx/1.0.2; racc -o parser.rb ofx_102.racc"
+    sh "cd lib/ofx/1.0.2; bundle exec rex -o lexer.rb ofx_102.rex"
+    sh "cd lib/ofx/1.0.2; bundle exec racc -o parser.rb ofx_102.racc"
 end
 
 task :test => :parsers
 task :coverage => :parsers
 task :rdoc => :parsers
+
+namespace :gem do
+  def gem_name
+    gemspec = eval(File.read(Dir['*.gemspec'].first))
+    "#{gemspec.name}-#{gemspec.version}.gem"
+  end
+
+  desc "Build the gem"
+  task :build do
+    mkdir_p "pkg", :verbose => false
+    sh "gem build *.gemspec && mv #{gem_name} pkg"
+  end
+  
+  desc "Release the gem"
+  task :release => :build do
+    sh "gem push pkg/#{gem_name}"
+  end
+end
