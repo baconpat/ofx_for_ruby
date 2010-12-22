@@ -15,11 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test/unit'
-require File.dirname(__FILE__) + '/../../lib/ofx'
-
-require 'uri'
-
 require File.dirname(__FILE__) + '/capital_one_helper'
 
 class CapitalOneSignupAccountInformationTest < Test::Unit::TestCase

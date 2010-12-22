@@ -15,8 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test/unit'
-require File.dirname(__FILE__) + '/../lib/ofx'
+require File.dirname(__FILE__) + '/test_helper'
 
 class OFXVersionTest < Test::Unit::TestCase
 
