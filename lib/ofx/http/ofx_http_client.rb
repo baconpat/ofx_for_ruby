@@ -40,7 +40,7 @@ module OFX
             #print_request http_request
 
             http = Net::HTTP.new(@ofx_uri.host, @ofx_uri.port)
-            http.verify_mode = OpenSSL::SSL::VERIFY_NONE # CAG 2007.06.24 - removes the peer warning, but should we be verifying?
+            http.verify_mode = OpenSSL::SSL::VERIFY_PEER
             http.use_ssl = true
             http_response = http.start do |http|
                 http.request(http_request)
