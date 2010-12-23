@@ -35,7 +35,7 @@ Rake::RDocTask.new do |rd|
 end
 
 # RCOV command, run as though from the commandline.  Amend as required or perhaps move to config/environment.rb?
-RCOV = "rcov -Ilib --xref --profile"
+RCOV = "bundle exec rcov -Ilib --xref --profile"
 
 desc "generate a unit coverage report in coverage"
 task :"coverage" do
