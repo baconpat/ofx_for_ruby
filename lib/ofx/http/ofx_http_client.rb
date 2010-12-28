@@ -41,6 +41,7 @@ module OFX
 
             http = Net::HTTP.new(@ofx_uri.host, @ofx_uri.port)
             http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+            http.ca_file = File.join(File.dirname(__FILE__), "cacert.pem")
             http.use_ssl = true
             http_response = http.start do |http|
                 http.request(http_request)

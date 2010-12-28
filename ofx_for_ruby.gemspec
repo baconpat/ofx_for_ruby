@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = "1.3.7"
   s.summary = "Pure Ruby implementation of Open Financial Exchange specifications"
-  s.files = Dir["lib/**/*.rb"] + Dir["lib/**/*.racc"] + Dir["lib/**/*.rex"] + %w(README COPYING RELEASE_NOTES)
+  s.files = Dir["lib/**/*.rb"] + Dir["lib/**/*.racc"] + Dir["lib/**/*.rex"] + Dir["lib/**/*.pem"] + %w(README COPYING RELEASE_NOTES)
     
   s.add_dependency "activesupport"
   
