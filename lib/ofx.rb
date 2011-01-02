@@ -22,33 +22,33 @@ require 'cgi'
 require 'bigdecimal'
 require 'bigdecimal/util'
 
-require File.dirname(__FILE__) + '/ofx/version'
-require File.dirname(__FILE__) + '/ofx/status'
-require File.dirname(__FILE__) + '/ofx/file_unique_identifier'
-require File.dirname(__FILE__) + '/ofx/transaction_unique_identifier'
-require File.dirname(__FILE__) + '/ofx/header'
-require File.dirname(__FILE__) + '/ofx/message_set'
-require File.dirname(__FILE__) + '/ofx/document'
-require File.dirname(__FILE__) + '/ofx/statements'
-
-require File.dirname(__FILE__) + '/ofx/financial_institution'
-require File.dirname(__FILE__) + '/ofx/financial_client'
-
-require File.dirname(__FILE__) + '/ofx/signon_message_set'
-require File.dirname(__FILE__) + '/ofx/signup_message_set'
-require File.dirname(__FILE__) + '/ofx/banking_message_set'
-require File.dirname(__FILE__) + '/ofx/credit_card_statement_message_set'
-require File.dirname(__FILE__) + '/ofx/investment_statement_message_set'
-require File.dirname(__FILE__) + '/ofx/interbank_funds_transfer_message_set'
-require File.dirname(__FILE__) + '/ofx/wire_funds_transfer_message_set'
-require File.dirname(__FILE__) + '/ofx/payment_message_set'
-require File.dirname(__FILE__) + '/ofx/email_message_set'
-require File.dirname(__FILE__) + '/ofx/investment_security_list_message_set'
-require File.dirname(__FILE__) + '/ofx/financial_institution_profile_message_set'
-
-require File.dirname(__FILE__) + '/ofx/serializer'
-
-require File.dirname(__FILE__) + '/ofx/http/ofx_http_client.rb'
+require 'ofx/version'
+require 'ofx/status'
+require 'ofx/file_unique_identifier'
+require 'ofx/transaction_unique_identifier'
+require 'ofx/header'
+require 'ofx/message_set'
+require 'ofx/document'
+require 'ofx/statements'
+         
+require 'ofx/financial_institution'
+require 'ofx/financial_client'
+         
+require 'ofx/signon_message_set'
+require 'ofx/signup_message_set'
+require 'ofx/banking_message_set'
+require 'ofx/credit_card_statement_message_set'
+require 'ofx/investment_statement_message_set'
+require 'ofx/interbank_funds_transfer_message_set'
+require 'ofx/wire_funds_transfer_message_set'
+require 'ofx/payment_message_set'
+require 'ofx/email_message_set'
+require 'ofx/investment_security_list_message_set'
+require 'ofx/financial_institution_profile_message_set'
+         
+require 'ofx/serializer'
+         
+require 'ofx/http/ofx_http_client.rb'
 
 # = Summary
 # An implementation of the OFX specification for financial systems
