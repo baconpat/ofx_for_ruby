@@ -59,3 +59,5 @@ task :test => :parsers
 task :coverage => :parsers
 task :rdoc => :parsers
 task :build => :parsers
+task :release => :parsers
+task :install => :parsers
