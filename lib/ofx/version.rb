@@ -77,4 +77,6 @@ module OFX
             return @version.hash
         end
     end
+    
+    VERSION = Version.new('0.1.1')
 end

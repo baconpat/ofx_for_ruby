@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'bundler/setup'
+Bundler::GemHelper.install_tasks
+
 require 'rake'
 require 'rake/clean'
 require 'rake/testtask'
@@ -55,21 +58,4 @@ end
 task :test => :parsers
 task :coverage => :parsers
 task :rdoc => :parsers
-
-namespace :gem do
-  def gem_name
-    gemspec = eval(File.read(Dir['*.gemspec'].first))
-    "#{gemspec.name}-#{gemspec.version}.gem"
-  end
-
-  desc "Build the gem"
-  task :build do
-    mkdir_p "pkg", :verbose => false
-    sh "gem build *.gemspec && mv #{gem_name} pkg"
-  end
-  
-  desc "Release the gem"
-  task :release => :build do
-    sh "gem push pkg/#{gem_name}"
-  end
-end
+task :build => :parsers
