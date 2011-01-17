@@ -113,7 +113,7 @@ module OFX
             body << "          <ACCTID>#{account_identifier}"
             body << "          <ACCTTYPE>#{BankingAccount.account_type_to_ofx_102_s(account_type)}"
             body << "          <ACCTKEY>#{account_key}" if account_key
-            body << "        </BANKACCTFROM>"
+            body << "        </BANKACCTFROM>\n"
             body.join("\n")
         end
         

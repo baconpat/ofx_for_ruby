@@ -21,21 +21,25 @@ module OFX
 
         def initialize(version)
             @version = [0, 0, 0]
-
-            version = version.to_a if version.kind_of?(Version)
-
-            @version[0] = version if version.kind_of?(Integer)
-            return unless version.respond_to?(:length)
-
-            @version[0] = version[0..0].to_s.to_i if (version.length >= 1)
-
-            if (version.length == 3)
-                @version[1] = version[1..1].to_s.to_i
-                @version[2] = version[2..2].to_s.to_i
-            elsif (version.length == 5)
-                @version[1] = version[2..2].to_s.to_i
-                @version[2] = version[4..4].to_s.to_i
+            
+            return if version.nil?
+            
+            parts = case version
+            when Version
+              version.to_a
+            when Integer
+              [version, 0, 0]
+            when Array
+              version
+            when /\./
+              version.split(".")
+            else
+              [version[0..0], version[1..1], version[2..2]]
             end
+
+            @version[0] = parts[0].to_i
+            @version[1] = parts[1].to_i
+            @version[2] = parts[2].to_i
         end
 
         def major
