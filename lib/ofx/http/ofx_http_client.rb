@@ -30,14 +30,14 @@ module OFX
         def send(ofx_body)
             http_request = Net::HTTP::Post.new(@ofx_uri.request_uri)
 
-            http_request['User-Agent'] = 'OFX for Ruby 0.0.1.0'
+            http_request['User-Agent'] = "OFX for Ruby #{OFX::VERSION.to_dotted_s}"
             http_request['Content-Type'] = 'application/x-ofx'
             http_request['Accept'] = "*/*, application/x-ofx"
             http_request['Content-Length'] = ofx_body.length.to_s
 
             http_request.body = ofx_body.gsub("\n", "\r\n")
 
-            #print_request http_request
+            # print_request http_request
 
             http = Net::HTTP.new(@ofx_uri.host, @ofx_uri.port)
             http.verify_mode = OpenSSL::SSL::VERIFY_PEER
