@@ -1,0 +1,8 @@
+If making changes, please test the following to ensure no regressions.
+That is, the following should return data and no HTTP errors.
+
+  OFX::FinancialInstitution.get_institution('Capital One').get_anon_profile
+  OFX::FinancialInstitution.get_institution('Citi').get_anon_profile
+  OFX::FinancialInstitution.get_institution('Chase').get_anon_profile
+  OFX::FinancialInstitution.get_institution('AMEX').get_anon_profile
+
