@@ -109,7 +109,13 @@ module OFX
         def ofx_102_response_body
             raise NotImplementedError
         end
-        
+ 
+        def account_identifier
+            info = accounts[0].account_information if not accounts.empty?
+            id = info.account.account_identifier if info
+            return id
+        end
+       
         def self.from_ofx_102_hash(transaction_hash)
             response = AccountInformationResponse.new
                        

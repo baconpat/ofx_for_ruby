@@ -193,6 +193,14 @@ module OFX
           return requestDocument
         end
 
+        def get_account_id
+            req = create_request_document_signup
+            return nil if req.nil?
+            resp = send(req)
+            id = resp.message_sets[1].responses[0].account_identifier if resp
+            return id
+        end
+
         def send(document)
             serializer = OFX::Serializer.get(@ofx_version)
             request_body = serializer.to_http_post_body(document)
