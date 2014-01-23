@@ -117,7 +117,10 @@ module OFX
             response.status = OFX::Status.from_ofx_102_hash(transaction_hash['STATUS'])
             
             response_hash = transaction_hash['ACCTINFORS']
-            response.date_of_last_account_update = response_hash['DTACCTUP'].to_datetime
+            if not response_hash
+              return response
+            end
+            response.date_of_last_account_update = response_hash['DTACCTUP'].to_datetime if response_hash['DTACCTUP']
             
             response.accounts = []
             account_infos = response_hash['ACCTINFO'] if response_hash['ACCTINFO'].kind_of?(Array)

@@ -136,7 +136,9 @@ module OFX
             
             transaction_list_hash = response_hash['BANKTRANLIST']
             if (transaction_list_hash)
-                response.transaction_range = transaction_list_hash['DTSTART'].to_datetime..transaction_list_hash['DTEND'].to_datetime
+                if transaction_list_hash['DTSTART'] && transaction_list_hash['DTEND']
+                    response.transaction_range = transaction_list_hash['DTSTART'].to_datetime..transaction_list_hash['DTEND'].to_datetime
+                end
                 
                 response.transactions = []
                 transactions = transaction_list_hash['STMTTRN'] if transaction_list_hash['STMTTRN'].kind_of?(Array)
@@ -151,7 +153,7 @@ module OFX
                     transaction.date_initiated = transaction_hash['DTUSER'].to_datetime if transaction_hash['DTUSER']
                     transaction.date_available = transaction_hash['DTAVAIL'].to_datetime if transaction_hash['DTAVAIL']
 
-                    transaction.amount = transaction_hash['TRNAMT'].to_d
+                    transaction.amount = transaction_hash['TRNAMT'].to_d if transaction_hash['TRNAMT']
                     transaction.currency = transaction_hash['CURRENCY'] || transaction_hash['ORIGCURRENCY'] || response.default_currency
         
                     transaction.financial_institution_transaction_identifier = transaction_hash['FITID']
@@ -241,7 +243,10 @@ module OFX
                 statement.currency = closing_hash['CURRENCY'] || closing_hash['ORIGCURRENCY'] || response.default_currency
                 
                 statement.finanical_institution_transaction_identifier = closing_hash['FITID']
-                statement.statement_range = closing_hash['DTOPEN'].to_date..closing_hash['DTCLOSE'].to_date
+
+                if closing_hash['DTOPEN'] && closing_hash['DTCLOSE']
+                    statement.statement_range = closing_hash['DTOPEN'].to_date..closing_hash['DTCLOSE'].to_date
+                end
                 statement.next_statement_close = closing_hash['DTNEXT'].to_date if closing_hash['DTNEXT']
         
                 statement.opening_balance = closing_hash['BALOPEN'].to_d if closing_hash['BALOPEN']
@@ -256,7 +261,9 @@ module OFX
                 statement.debit_adjustements  = closing_hash['DEBADJ'].to_d if closing_hash['DEBADJ']
                 statement.credit_limit  = closing_hash['CREDITLIMIT'].to_d if closing_hash['CREDITLIMIT']
                 
-                statement.transaction_range = closing_hash['DTPOSTSTART'].to_date..closing_hash['DTPOSTEND'].to_date
+                if closing_hash['DTPOSTSTART'] && closing_hash['DTPOSTEND']
+                    statement.transaction_range = closing_hash['DTPOSTSTART'].to_date..closing_hash['DTPOSTEND'].to_date
+                end
                 
                 statement.marketing_information = closing_hash['MKTGINFO']
                 

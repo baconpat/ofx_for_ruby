@@ -55,9 +55,14 @@ module OFX
             end
 
             def from_http_response_body(body)
-                header_pattern = /(\w+\:.*\n)+/
+                #header_pattern = /(\w+\:.*\n)+\n/
+                header_pattern = /(\w+\:.*\r*\n)+\r*\n/
                 header_match = header_pattern.match(body)
-                
+                if header_match.nil?
+                  raise NotImplementedError, "OFX server returned unmatched ASCII"
+                  return body
+                end
+
                 body = header_match.post_match
                 header = Header.from_ofx_102_s(header_match[0].strip)
             
@@ -87,8 +92,28 @@ class Date
     end
 end
 class DateTime
-    def to_ofx_102_s
-        strftime('%Y%m%d%H%M%S')
+    def to_time
+        Time.parse(self.to_s)
+    end
+
+    def to_ofx_102_s_defunct
+        strftime('%Y%m%d%H%M%S.') + (sec_fraction * 86400000000).to_i.to_s + '[' + offset.numerator.to_s + ':' + strftime('%Z') + ']'
+    end
+
+    def to_ofx_102_s(extended=true)
+        s = strftime('%Y%m%d%H%M%S')
+
+        if extended
+            # some servers need exactly 3 decimal places for sec_fraction
+            s = s + '.000'
+
+            # use Time class to return TZ in correct format for OFX
+            #  ie. ("EDT" vs. "-07:00")
+            tz = to_time.zone
+            s = s + '[0:' + tz + ']'
+        end
+
+        return s
     end
 end
 class String
