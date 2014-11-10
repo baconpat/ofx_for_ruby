@@ -111,7 +111,7 @@ module OFX
         end
  
         def account_identifier
-            info = accounts[0].account_information if not accounts.empty?
+            info = accounts[0].account_information if accounts and not accounts.empty?
             id = info.account.account_identifier if info
             return id
         end
