@@ -39,7 +39,7 @@ module OFX
                                              URI.parse('https://ofx.chase.com'),
                                              OFX::Version.new("1.0.2"),
                                              'B1', '10898', nil,
-                                             'Quicken', :SSLv3)
+                                             'Quicken', :TLSv1)
                 when 'AMEX'
                     FinancialInstitution.new('AMEX',
                                              URI.parse('https://online.americanexpress.com/myca/ofxdl/desktop/desktopDownload.do?request_type=nl_ofxdownload'),
