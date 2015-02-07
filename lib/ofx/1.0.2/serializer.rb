@@ -20,7 +20,6 @@ require File.dirname(__FILE__) + '/header'
 require File.dirname(__FILE__) + '/message_set'
 require File.dirname(__FILE__) + '/status'
 require File.dirname(__FILE__) + '/statements'
-
 require File.dirname(__FILE__) + '/signon_message_set'
 require File.dirname(__FILE__) + '/signup_message_set'
 require File.dirname(__FILE__) + '/banking_message_set'
@@ -32,8 +31,9 @@ require File.dirname(__FILE__) + '/payment_message_set'
 require File.dirname(__FILE__) + '/email_message_set'
 require File.dirname(__FILE__) + '/investment_security_list_message_set'
 require File.dirname(__FILE__) + '/financial_institution_profile_message_set'
-
 require File.dirname(__FILE__) + '/parser'
+require 'date'
+require 'time'
 
 module OFX
     module OFX102
@@ -85,7 +85,6 @@ module OFX
     end
 end
 
-require 'date'
 class Date
     def to_ofx_102_s
         strftime('%Y%m%d')
@@ -110,7 +109,7 @@ class DateTime
             # use Time class to return TZ in correct format for OFX
             #  ie. ("EDT" vs. "-07:00")
             tz = to_time.zone
-            s = s + '[0:' + tz + ']'
+            s = s + '[0:' + tz + ']' if tz
         end
 
         return s
