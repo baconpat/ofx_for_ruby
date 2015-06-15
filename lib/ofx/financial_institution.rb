@@ -51,7 +51,13 @@ module OFX
                                              URI.parse('https://ofx.schwab.com/bankcgi_dev/ofx_server'),
                                              OFX::Version.new("1.0.2"),
                                              'ISC', '101', '121202211',
-                                             'Quicken', ssl_version)               
+                                             'Quicken', ssl_version) 
+                when 'Fidelity'
+                     FinancialInstitution.new('Fidelity',
+                                             URI.parse('https://ofx.fidelity.com/ftgw/OFX/clients/download'),
+                                             OFX::Version.new("1.0.2"),
+                                             'fidelity.com', '7776', nil,
+                                             'Quicken', ssl_version) 
                 else
                     raise NotImplementedError
             end
