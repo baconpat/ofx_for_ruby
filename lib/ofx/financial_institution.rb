@@ -46,6 +46,12 @@ module OFX
                                              OFX::Version.new("1.0.2"),
                                              'AMEX', '3101', nil,
                                              'Quicken', ssl_version)
+                when 'Schwab'
+                     FinancialInstitution.new('Schwab',
+                                             URI.parse('https://ofx.schwab.com/bankcgi_dev/ofx_server'),
+                                             OFX::Version.new("1.0.2"),
+                                             'ISC', '101', '121202211',
+                                             'Quicken', ssl_version)               
                 else
                     raise NotImplementedError
             end
