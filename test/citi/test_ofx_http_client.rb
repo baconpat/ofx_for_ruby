@@ -17,7 +17,7 @@
 
 require File.dirname(__FILE__) + '/citi_helper'
 
-class CitiOFXHTTPClientTest < Test::Unit::TestCase
+class CitiOFXHTTPClientTest < Minitest::Test
 
     include CitiHelper
     
@@ -26,6 +26,7 @@ class CitiOFXHTTPClientTest < Test::Unit::TestCase
     end
 
     def test_account_info_request_to_citi
+        skip 'Need Citi Account'
         account_info_request =
 "OFXHEADER:100
 DATA:OFXSGML

@@ -17,7 +17,7 @@
 
 require File.dirname(__FILE__) + '/capital_one_helper'
 
-class CapitalOneOFXHTTPClientTest < Test::Unit::TestCase
+class CapitalOneOFXHTTPClientTest < Minitest::Test
 
     include CapitalOneHelper
     
@@ -26,6 +26,7 @@ class CapitalOneOFXHTTPClientTest < Test::Unit::TestCase
     end
 
     def test_account_info_request_to_capital_one
+        skip 'Need Capital One Account'
         account_info_request =
 "OFXHEADER:100
 DATA:OFXSGML

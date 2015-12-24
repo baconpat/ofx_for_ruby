@@ -53,6 +53,10 @@ module OFX
                     document.header.header_version = OFX::Version.new("1.0.0")
                     document.header.content_type = "OFXSGML"
                     document.header.document_version = OFX::Version.new("1.0.2")
+                when OFX::Version.new("1.0.3")
+                     document.header.header_version = OFX::Version.new("1.0.0")
+                     document.header.content_type = "OFXSGML"
+                     document.header.document_version = OFX::Version.new("1.0.3")
                 else
                     raise NotImplementedError
             end

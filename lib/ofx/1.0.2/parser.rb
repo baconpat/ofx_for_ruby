@@ -62,36 +62,36 @@ end
 ##### State transition tables begin ###
 
 racc_action_table = [
-     1,     6,     1,    14,    15,    14,    15,     8,     9,     5,
-    17,    19,    20,     1 ]
+     4,    16,     4,    10,    12,    10,    12,     8,     5,     7,
+    17,    19,    20,     4 ]
 
 racc_action_check = [
-    18,     2,     7,    18,    18,     7,     7,     5,     6,     1,
-    14,    16,    17,     0 ]
+    18,     7,     6,    18,    18,     6,     6,     5,     1,     4,
+    10,    15,    17,     0 ]
 
 racc_action_pointer = [
-    11,     6,     1,   nil,   nil,     3,     8,     0,   nil,   nil,
-   nil,   nil,   nil,   nil,     7,   nil,     5,     8,    -2,   nil,
+    11,     8,   nil,   nil,     6,     7,     0,    -3,   nil,   nil,
+     7,   nil,   nil,   nil,   nil,     5,   nil,     8,    -2,   nil,
    nil,   nil ]
 
 racc_action_default = [
-    -1,   -13,   -13,    -2,    -6,   -13,   -13,   -13,    -4,    22,
-    -3,    -7,    -9,   -10,   -13,    -8,    -6,   -13,   -13,   -12,
+    -1,   -13,    -2,    -6,   -13,   -13,   -13,   -13,    22,    -3,
+   -13,    -7,    -8,    -9,   -10,    -6,    -4,   -13,   -13,   -12,
     -5,   -11 ]
 
 racc_goto_table = [
-     7,     4,    10,     3,     2,   nil,   nil,   nil,   nil,   nil,
-   nil,   nil,    18,    21 ]
+     9,     6,     3,     2,     1,   nil,   nil,   nil,   nil,   nil,
+   nil,   nil,    21,    18 ]
 
 racc_goto_check = [
-     4,     3,     5,     2,     1,   nil,   nil,   nil,   nil,   nil,
-   nil,   nil,     4,     5 ]
+     5,     4,     3,     2,     1,   nil,   nil,   nil,   nil,   nil,
+   nil,   nil,     5,     4 ]
 
 racc_goto_pointer = [
-   nil,     4,     3,     1,    -4,    -5,   nil,   nil,   nil ]
+   nil,     4,     3,     2,    -2,    -6,   nil,   nil,   nil ]
 
 racc_goto_default = [
-   nil,   nil,   nil,    16,   nil,   nil,    11,    12,    13 ]
+   nil,   nil,   nil,    15,   nil,   nil,    11,    13,    14 ]
 
 racc_reduce_table = [
   0, 0, :racc_error,

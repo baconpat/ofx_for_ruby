@@ -49,12 +49,14 @@ module OFX
                 end
                 body += "</OFX>\n"
                 
-                #print body
+                # puts body
 
                 body
             end
 
             def from_http_response_body(body)
+                # puts "Raw response:\n#{body}"
+
                 header_pattern = /(\w+\:.*\n)+/
                 header_match = header_pattern.match(body)
                 
@@ -62,15 +64,15 @@ module OFX
                 header = Header.from_ofx_102_s(header_match[0].strip)
             
                 parser = OFX::OFX102::Parser.new
+
                 parser.scan_str body
                 
                 if parser.documents.length > 1
                     raise NotImplementedError, "Multiple response documents"
                 end
                 
-                #require 'pp'
-                #print body
-                #pp parser.ofx_hashes[0]
+                # require 'pp'
+                # pp parser.ofx_hashes[0]
                 
                 document = parser.documents[0]
                 document.header = header

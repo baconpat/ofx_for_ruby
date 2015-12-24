@@ -21,7 +21,7 @@ module OFX
     class Serializer
         def self.get(version)
             case version
-                when OFX::Version.new("1.0.2")
+                when OFX::Version.new("1.0.2"), OFX::Version.new("1.0.3")
                     return OFX::OFX102::Serializer.new
                 else
                     raise NotImplementedError

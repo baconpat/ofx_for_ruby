@@ -28,10 +28,10 @@ macro
 rule
 
 # [:state]  	pattern  						[actions]
-                {ETAG_IN}               		{ state = :TAG; [:etag_in, text] }
-                {TAG_IN}                		{ state = :TAG; [:tag_in, text] }
+                {ETAG_IN}               		{ @state = :TAG; [:etag_in, text] }
+                {TAG_IN}                		{ @state = :TAG; [:tag_in, text] }
 
-  :TAG          {TAG_OUT}               		{ state = nil;  [:tag_out, text] }
+  :TAG          {TAG_OUT}               		{ @state = nil;  [:tag_out, text] }
  
   :TAG          [\w\-\.]+              			{               [:element, text] }
 

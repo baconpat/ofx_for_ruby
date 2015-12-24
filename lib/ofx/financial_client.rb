@@ -23,6 +23,7 @@ module OFX
         @financial_institutions_and_credentials = []
         
         attr_accessor :date_of_last_profile_update
+        attr_accessor :client_unique_identifier
 
         def initialize(financial_institutions_and_credentials)
             @financial_institutions_and_credentials = financial_institutions_and_credentials
@@ -56,6 +57,7 @@ module OFX
             signonRequest.financial_institution_identification = self.financial_institution_identification_for(financial_institution_id)
             signonRequest.session_cookie = nil
             signonRequest.application_identification = self.application_identification
+            signonRequest.client_unique_identifier = self.client_unique_identifier
             signonMessageSet.requests << signonRequest
 
             signonMessageSet

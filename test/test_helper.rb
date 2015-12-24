@@ -1,4 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
-require 'test/unit'
+# require 'test/unit'
+require 'minitest/autorun'
+require 'minitest/test'
+require 'pry'
 require 'ofx'

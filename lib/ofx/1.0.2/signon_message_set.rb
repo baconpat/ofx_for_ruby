@@ -56,7 +56,8 @@ module OFX
             "      <LANGUAGE>#{language}\n" +
             financial_institution_identification.to_ofx_102_s + "\n" +
             ("      <SESSCOOKIE>#{session_cookie}\n" if session_cookie).to_s +
-            application_identification.to_ofx_102_s
+            application_identification.to_ofx_102_s + "\n" +
+            ("      <CLIENTUID>#{client_unique_identifier}" if client_unique_identifier).to_s
         end
         def self.from_ofx_102_hash(request_hash)
             raise NotImplementedError
