@@ -79,6 +79,7 @@ module OFX
         attr_accessor :financial_institution_identification
         attr_accessor :session_cookie
         attr_accessor :application_identification
+        attr_accessor :client_unique_identifier
 
         def satisfies_requirements?
             raise NotImplementedError

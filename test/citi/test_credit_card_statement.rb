@@ -17,7 +17,7 @@
 
 require File.dirname(__FILE__) + '/citi_helper'
 
-class CitiCreditCardStatmentTest < Test::Unit::TestCase
+class CitiCreditCardStatmentTest < Minitest::Test
 
     include CitiHelper
 
@@ -27,6 +27,7 @@ class CitiCreditCardStatmentTest < Test::Unit::TestCase
     end
 
     def test_requesting_last_seven_days_statement_from_citi
+        skip 'Need Citi Account'
         financial_institution = OFX::FinancialInstitution.get_institution('Citi')
         requestDocument = financial_institution.create_request_document
 
@@ -93,6 +94,7 @@ class CitiCreditCardStatmentTest < Test::Unit::TestCase
     end
     
     def test_requesting_closing_statement_from_citi
+        skip 'Need Citi Account'
         financial_institution = OFX::FinancialInstitution.get_institution('Citi')
         requestDocument = financial_institution.create_request_document
 

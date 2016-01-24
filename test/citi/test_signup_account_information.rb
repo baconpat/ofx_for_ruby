@@ -17,7 +17,7 @@
 
 require File.dirname(__FILE__) + '/citi_helper'
 
-class CitiSignupAccountInformationTest < Test::Unit::TestCase
+class CitiSignupAccountInformationTest < Minitest::Test
 
     include CitiHelper
 
@@ -27,6 +27,7 @@ class CitiSignupAccountInformationTest < Test::Unit::TestCase
     end
 
     def test_requesting_fresh_fi_profile_from_capital_one
+        skip 'Need Citi Account'
         financial_institution = OFX::FinancialInstitution.get_institution('Citi')
         requestDocument = financial_institution.create_request_document
 

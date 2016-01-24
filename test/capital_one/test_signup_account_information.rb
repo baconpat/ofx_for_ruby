@@ -17,7 +17,7 @@
 
 require File.dirname(__FILE__) + '/capital_one_helper'
 
-class CapitalOneSignupAccountInformationTest < Test::Unit::TestCase
+class CapitalOneSignupAccountInformationTest < Minitest::Test
 
     include CapitalOneHelper
 
@@ -27,6 +27,7 @@ class CapitalOneSignupAccountInformationTest < Test::Unit::TestCase
     end
 
     def test_requesting_fresh_fi_profile_from_capital_one
+        skip 'Need Capital One Account'
         financial_institution = OFX::FinancialInstitution.get_institution('Capital One')
         requestDocument = financial_institution.create_request_document
 

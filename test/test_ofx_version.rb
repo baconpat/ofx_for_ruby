@@ -17,7 +17,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/test_helper')
 
-class OFXVersionTest < Test::Unit::TestCase
+class OFXVersionTest < Minitest::Test
 
     def test_creating_from_array
         version = OFX::Version.new([1, 2, 3])

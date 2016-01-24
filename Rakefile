@@ -21,7 +21,7 @@ Bundler::GemHelper.install_tasks
 require 'rake'
 require 'rake/clean'
 require 'rake/testtask'
-require 'rake/rdoctask'
+require 'rdoc/task'
 
 
 Rake::TestTask.new do |t|
@@ -37,17 +37,8 @@ Rake::RDocTask.new do |rd|
     rd.rdoc_dir = "documentation/api"
 end
 
-# RCOV command, run as though from the commandline.  Amend as required or perhaps move to config/environment.rb?
-RCOV = "bundle exec rcov -Ilib --xref --profile"
-
-desc "generate a unit coverage report in coverage"
-task :"coverage" do
-    sh "#{RCOV} --output coverage test/test_*.rb test/**/test_*.rb"
-end
-
-desc "runs coverage and rdoc"
-task :default => [:coverage, :rdoc]
-
+desc "runs tests and rdoc"
+task :default => [:test, :rdoc]
 
 desc "recreates parsers"
 task :parsers do
@@ -56,7 +47,6 @@ task :parsers do
 end
 
 task :test => :parsers
-task :coverage => :parsers
 task :rdoc => :parsers
 task :build => :parsers
 task :release => :parsers

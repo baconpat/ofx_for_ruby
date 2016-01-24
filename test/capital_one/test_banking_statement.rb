@@ -17,7 +17,7 @@
 
 require File.dirname(__FILE__) + '/capital_one_helper'
 
-class CapitalOneBankingStatmentTest < Test::Unit::TestCase
+class CapitalOneBankingStatmentTest < Minitest::Test
 
     include CapitalOneHelper
 
@@ -27,6 +27,7 @@ class CapitalOneBankingStatmentTest < Test::Unit::TestCase
     end
 
     def test_requesting_last_seven_days_statement_from_capital_one
+        skip 'Need Capital One Account'
         financial_institution = OFX::FinancialInstitution.get_institution('Capital One')
         requestDocument = financial_institution.create_request_document
 
