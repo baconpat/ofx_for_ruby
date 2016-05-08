@@ -110,8 +110,9 @@ module OFX
             raise NotImplementedError
         end
  
-        def account_identifier
-            info = accounts[0].account_information if accounts and not accounts.empty?
+        def account_identifier(account_id=nil)
+            account_id = 0 if not account_id
+            info = accounts[account_id].account_information if accounts and accounts.size > account_id
             id = info.account.account_identifier if info
             return id
         end
