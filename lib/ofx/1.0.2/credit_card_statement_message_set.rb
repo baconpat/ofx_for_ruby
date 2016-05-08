@@ -84,22 +84,19 @@ module OFX
         def ofx_102_name
             'CCSTMT'
         end
+
         def ofx_102_request_body
             body = ""
-            
             body += account.to_ofx_102_request_body
-            
             body +=
-            "        <INCTRAN>\n" +
-            "          <INCLUDE>#{include_transactions.to_ofx_102_s}\n" if include_transactions
-            
+            "        <INCTRAN>\n" if include_transactions
             body +=
-            "          <DTSTART>#{included_range.begin.to_ofx_102_s}\n" +
-            "          <DTEND>#{included_range.end.to_ofx_102_s}\n" if included_range
-            
+            "        <DTSTART>#{included_range.begin.to_ofx_102_s}\n" +
+            "        <DTEND>#{included_range.end.to_ofx_102_s}\n" if included_range
+            body +=
+            "        <INCLUDE>#{include_transactions.to_ofx_102_s}\n" if include_transactions
             body +=
             "        </INCTRAN>" if include_transactions
-            
             body
         end
         

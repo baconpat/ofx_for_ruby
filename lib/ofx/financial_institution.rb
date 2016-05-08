@@ -91,6 +91,7 @@ module OFX
           # caller can generate one-time with: SecureRandom.hex(16)
           # see: http://wiki.gnucash.org/wiki/Setting_up_OFXDirectConnect_in_GnuCash_2#Chase_.22username_or_password_are_incorrect.22
           @client.client_unique_identifier = client_uid
+          @client
         end
 
         # anonymous can be used for ProfileRequest
