@@ -83,11 +83,14 @@ module OFX
             @ofx_ssl_version = ssl_version
         end
 
-        def set_client(user_name, password)
+        def set_client(user_name, password, client_uid=nil)
           inst_id = OFX::FinancialInstitutionIdentification.new(
                             @organization_name, @organization_id)
           user_cred = OFX::UserCredentials.new(user_name, password)
           @client = OFX::FinancialClient.new([[inst_id, user_cred]])
+          # caller can generate one-time with: SecureRandom.hex(16)
+          # see: http://wiki.gnucash.org/wiki/Setting_up_OFXDirectConnect_in_GnuCash_2#Chase_.22username_or_password_are_incorrect.22
+          @client.client_unique_identifier = client_uid
         end
 
         # anonymous can be used for ProfileRequest
