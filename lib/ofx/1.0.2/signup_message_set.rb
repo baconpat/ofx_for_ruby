@@ -183,6 +183,19 @@ module OFX
                                                                 when 'ACTIVE' then :active
                                                                 else raise NotImplementedError
                                                               end
+                elsif account_info_hash['INVACCTINFO']
+                    cc_acct_info_hash = account_info_hash['INVACCTINFO']
+                    account_info.account_information = OFX::CreditCardAccountInformation.new
+
+                    acct_from_hash = cc_acct_info_hash['INVACCTFROM']
+                    account_info.account_information.account = OFX::CreditCardAccount.new
+                    account_info.account_information.account.account_identifier = acct_from_hash['ACCTID']
+                    account_info.account_information.status = case cc_acct_info_hash['SVCSTATUS']
+                                                                when 'AVAIL' then :available
+                                                                when 'PEND' then :pending
+                                                                when 'ACTIVE' then :active
+                                                                else raise NotImplementedError
+                                                              end
                 else
                     raise NotImplementedError
                 end

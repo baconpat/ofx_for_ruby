@@ -203,7 +203,7 @@ module OFX
           statement_request.account.account_identifier = account_id
           statement_request.account.account_type = account_type
           statement_request.account.account_key = nil
-          statement_request.include_transactions = true
+          statement_request.include_transactions = true if date_range
           statement_request.included_range = date_range  # example DateRange (start.to_date)..(end.to_date)
           banking_message_set.requests << statement_request
 
@@ -212,6 +212,27 @@ module OFX
           requestDocument.message_sets << banking_message_set
           return requestDocument
         end
+
+        def create_request_document_for_inv_statement(account_id, date_range=nil)
+          return nil if @client.nil?
+          inv_message_set = OFX::InvestmentStatementMessageSet.new
+          statement_request = OFX::BankingStatementRequest.new
+          statement_request.transaction_identifier = OFX::TransactionUniqueIdentifier.new
+          statement_request.account = OFX::BankingAccount.new
+          statement_request.account.bank_identifier = @bank_identifier
+          statement_request.account.branch_identifier = nil
+          statement_request.account.account_identifier = account_id
+          statement_request.account.account_type = :money_market
+          statement_request.account.account_key = nil
+          statement_request.include_transactions = true if date_range
+          statement_request.included_range = date_range
+          inv_message_set.requests << statement_request
+
+          requestDocument = self.create_request_document
+          requestDocument.message_sets << @client.create_signon_request_message(@organization_id, @ofx_client_id)
+          requestDocument.message_sets << inv_message_set
+          return requestDocument
+	end
 
         def get_account_id(account_id=nil)
             req = create_request_document_signup
@@ -248,13 +269,22 @@ module OFX
             return request_body
         end
 
-        def send_from_post_data(data, debug_req=false, debug_resp=false)
+        def test_send(data, post_data=nil, serial_resp=true, debug_req=false, debug_resp=false)
+            serializer = OFX::Serializer.get(@ofx_version)
+            if post_data
+              request_body = data
+            else
+              request_body = serializer.to_http_post_body(data)
+            end
+
             client = OFX::HTTPClient.new(@ofx_uri)
-            request_body = data
             response_body = client.send(request_body, @ofx_ssl_version, debug_req, debug_resp)
 
-            serializer = OFX::Serializer.get(@ofx_version)
-            return serializer.from_http_response_body(response_body)
+            if serial_resp
+              return serializer.from_http_response_body(response_body)
+            else
+              return response_body
+            end
         end
     end
 end

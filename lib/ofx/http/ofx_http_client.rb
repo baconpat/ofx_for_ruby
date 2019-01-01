@@ -56,14 +56,12 @@ module OFX
                 http.request(http_request)
             end
 
-            if (do_print_response)
-                print_response http_response
-            end
-
             case http_response
                 when Net::HTTPSuccess
+                    print_response http_response if do_print_response
                     http_response.body
                 else
+                    print_response http_response
                     http_response.error!
             end
         end
