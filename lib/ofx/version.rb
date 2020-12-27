@@ -82,5 +82,5 @@ module OFX
         end
     end
 
-    VERSION = Version.new('0.2.3')
+    VERSION = Version.new('0.1.4')
 end
