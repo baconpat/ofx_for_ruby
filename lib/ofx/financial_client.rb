@@ -42,11 +42,21 @@ module OFX
             return nil
         end
 
-        def application_identification
-            OFX::ApplicationIdentification.new('OFX', '0010')
+        def application_identification(ofx_client_spoof=nil)
+            # Reference: http://wiki.mthbuilt.com/Tweaking_OFX_Connections
+            case ofx_client_spoof
+            when 'Money'
+                OFX::ApplicationIdentification.new('Money', '1600')
+            when 'Quicken'
+                OFX::ApplicationIdentification.new('QWIN', '1700')
+            when 'QuickBooks'
+                OFX::ApplicationIdentification.new('QBW', '1800')
+            else
+                OFX::ApplicationIdentification.new('OFX', '0010')
+            end
         end
 
-        def create_signon_request_message(financial_institution_id)
+        def create_signon_request_message(financial_institution_id, ofx_client_id=nil)
             signonMessageSet = OFX::SignonMessageSet.new
 
             signonRequest = OFX::SignonRequest.new
@@ -56,7 +66,7 @@ module OFX
             signonRequest.language = "ENG"
             signonRequest.financial_institution_identification = self.financial_institution_identification_for(financial_institution_id)
             signonRequest.session_cookie = nil
-            signonRequest.application_identification = self.application_identification
+            signonRequest.application_identification = self.application_identification(ofx_client_id)
             signonRequest.client_unique_identifier = self.client_unique_identifier
             signonMessageSet.requests << signonRequest
 

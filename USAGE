@@ -1,0 +1,17 @@
+
+An easy way to pull your OFX data is with:
+
+  fi = OFX::FinancialInstitution.get_institution('Chase')
+  fi.set_client(<user>, <pass>) 
+  id = fi.get_account_id
+  resp = fi.send(fi.create_request_document_for_cc_statement(id))
+
+
+If making changes, please test the following to ensure no regressions.
+That is, the following should return data and no HTTP errors.
+
+  OFX::FinancialInstitution.get_institution('Capital One').get_anon_profile
+  OFX::FinancialInstitution.get_institution('Citi').get_anon_profile
+  OFX::FinancialInstitution.get_institution('Chase').get_anon_profile
+  OFX::FinancialInstitution.get_institution('AMEX').get_anon_profile
+

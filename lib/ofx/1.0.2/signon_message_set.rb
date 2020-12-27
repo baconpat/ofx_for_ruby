@@ -113,7 +113,7 @@ module OFX
             response.language = response_hash['LANGUAGE']
             response.date_of_last_profile_update = response_hash['DTPROFUP'].to_datetime if response_hash['DTPROFUP']
             response.date_of_last_account_update = response_hash['DTACCTUP'].to_datetime if response_hash['DTACCTUP']
-            response.financial_institution_identification = OFX::FinancialInstitutionIdentification.from_ofx_102_hash(response_hash['FI'])
+            response.financial_institution_identification = OFX::FinancialInstitutionIdentification.from_ofx_102_hash(response_hash['FI']) if response_hash['FI']
             #TODO: @session_cookie
             
             response
