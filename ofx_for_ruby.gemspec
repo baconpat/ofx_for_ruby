@@ -19,7 +19,8 @@ Gem::Specification.new do |s|
   
   s.add_dependency "activesupport"
   
-  s.add_development_dependency "racc"
-  s.add_development_dependency "rexical"
+  s.add_development_dependency "racc", "1.4.6"
+  s.add_development_dependency "rexical", "1.0.5"
   s.add_development_dependency "pry"
+  s.add_development_dependency "rake"
 end

@@ -7,3 +7,4 @@ test/capital_one/fixtures/capital-one-credentials
 pkg
 coverage
 documentation
+tmp
