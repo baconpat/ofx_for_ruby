@@ -27,7 +27,7 @@ module OFX
             @ofx_uri = ofx_uri
         end
 
-        def send(ofx_body)
+        def send(ofx_body, ssl_version=nil, do_print_request=false, do_print_response=false)
             http_request = Net::HTTP::Post.new(@ofx_uri.request_uri)
 
             http_request['User-Agent'] = "OFX for Ruby #{OFX::VERSION.to_dotted_s}"
@@ -37,9 +37,18 @@ module OFX
 
             http_request.body = ofx_body.gsub("\n", "\r\n")
 
-            # print_request http_request
+            if (do_print_request)
+                print_request http_request
+            end
 
             http = Net::HTTP.new(@ofx_uri.host, @ofx_uri.port)
+
+            if (ssl_version)
+                # supported in Ruby 1.9 or patched into 1.8
+		if (Net::HTTP.method_defined?(:ssl_version=))
+                    http.ssl_version=ssl_version
+		end
+            end
             http.verify_mode = OpenSSL::SSL::VERIFY_PEER
             http.ca_file = File.join(File.dirname(__FILE__), "cacert.pem")
             http.use_ssl = true
@@ -47,12 +56,12 @@ module OFX
                 http.request(http_request)
             end
 
-            #print_response http_response
-
             case http_response
                 when Net::HTTPSuccess
+                    print_response http_response if do_print_response
                     http_response.body
                 else
+                    print_response http_response
                     http_response.error!
             end
         end

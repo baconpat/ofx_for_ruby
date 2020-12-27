@@ -37,7 +37,7 @@ module OFX
             header = OFX::Header.new
         
             header_pattern = /^(\w+)\:(.*)$/
-            header_string.split("\n").each do |this_header|
+            header_string.split(%r{\r*\n}).each do |this_header|
                 header_match = header_pattern.match(this_header)
                 header[header_match[1]] = header_match[2]
            end

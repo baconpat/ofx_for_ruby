@@ -206,7 +206,9 @@ module OFX
             
             transaction_list_hash = response_hash['BANKTRANLIST']
             if (transaction_list_hash)
-                response.transaction_range = transaction_list_hash['DTSTART'].to_datetime..transaction_list_hash['DTEND'].to_datetime
+                if transaction_list_hash['DTSTART'] && transaction_list_hash['DTEND']
+                    response.transaction_range = transaction_list_hash['DTSTART'].to_datetime..transaction_list_hash['DTEND'].to_datetime
+                end
                 
                 response.transactions = []
                 transactions = transaction_list_hash['STMTTRN'] if transaction_list_hash['STMTTRN'].kind_of?(Array)
@@ -221,7 +223,7 @@ module OFX
                     transaction.date_initiated = transaction_hash['DTUSER'].to_datetime if transaction_hash['DTUSER']
                     transaction.date_available = transaction_hash['DTAVAIL'].to_datetime if transaction_hash['DTAVAIL']
 
-                    transaction.amount = transaction_hash['TRNAMT'].to_d
+                    transaction.amount = transaction_hash['TRNAMT'].to_d if transaction_hash['TRNAMT']
                     transaction.currency = transaction_hash['CURRENCY'] || transaction_hash['ORIGCURRENCY'] || response.default_currency
         
                     transaction.financial_institution_transaction_identifier = transaction_hash['FITID']

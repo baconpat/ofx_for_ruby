@@ -109,7 +109,14 @@ module OFX
         def ofx_102_response_body
             raise NotImplementedError
         end
-        
+ 
+        def account_identifier(account_id=nil)
+            account_id = 0 if not account_id
+            info = accounts[account_id].account_information if accounts and accounts.size > account_id
+            id = info.account.account_identifier if info
+            return id
+        end
+       
         def self.from_ofx_102_hash(transaction_hash)
             response = AccountInformationResponse.new
                        
@@ -117,7 +124,10 @@ module OFX
             response.status = OFX::Status.from_ofx_102_hash(transaction_hash['STATUS'])
             
             response_hash = transaction_hash['ACCTINFORS']
-            response.date_of_last_account_update = response_hash['DTACCTUP'].to_datetime
+            if not response_hash
+              return response
+            end
+            response.date_of_last_account_update = response_hash['DTACCTUP'].to_datetime if response_hash['DTACCTUP']
             
             response.accounts = []
             account_infos = response_hash['ACCTINFO'] if response_hash['ACCTINFO'].kind_of?(Array)
@@ -167,6 +177,19 @@ module OFX
                     account_info.account_information.supports_transaction_detail_downloads = cc_acct_info_hash['SUPTXDL'] == 'Y'
                     account_info.account_information.transfer_source = cc_acct_info_hash['XFERSRC'] == 'Y'
                     account_info.account_information.transfer_destination = cc_acct_info_hash['XFERDEST'] == 'Y'
+                    account_info.account_information.status = case cc_acct_info_hash['SVCSTATUS']
+                                                                when 'AVAIL' then :available
+                                                                when 'PEND' then :pending
+                                                                when 'ACTIVE' then :active
+                                                                else raise NotImplementedError
+                                                              end
+                elsif account_info_hash['INVACCTINFO']
+                    cc_acct_info_hash = account_info_hash['INVACCTINFO']
+                    account_info.account_information = OFX::CreditCardAccountInformation.new
+
+                    acct_from_hash = cc_acct_info_hash['INVACCTFROM']
+                    account_info.account_information.account = OFX::CreditCardAccount.new
+                    account_info.account_information.account.account_identifier = acct_from_hash['ACCTID']
                     account_info.account_information.status = case cc_acct_info_hash['SVCSTATUS']
                                                                 when 'AVAIL' then :available
                                                                 when 'PEND' then :pending
