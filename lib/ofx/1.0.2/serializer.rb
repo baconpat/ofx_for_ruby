@@ -1,17 +1,17 @@
 # Copyright © 2007 Chris Guidry <chrisguidry@gmail.com>
 #
 # This file is part of OFX for Ruby.
-# 
+#
 # OFX for Ruby is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # OFX for Ruby is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -48,37 +48,35 @@ module OFX
                     body += message_set.to_ofx_102_s
                 end
                 body += "</OFX>\n"
-                
-                # puts body
 
                 body
             end
 
             def from_http_response_body(body)
-                # puts "Raw response:\n#{body}"
+                body = body.lstrip
 
-                #header_pattern = /(\w+\:.*\n)+\n/
-                header_pattern = /(\w+\:.*\r*\n)+\r*\n/
-                header_match = header_pattern.match(body)
-                if header_match.nil?
+                end_of_header_index = body.index("<OFX>")
+
+                header_str = body[0...end_of_header_index].strip
+                body = body[end_of_header_index..-1]
+
+                if header_str.nil? || header_str == ""
                   raise NotImplementedError, "OFX server returned unmatched ASCII"
-                  return body
                 end
 
-                body = header_match.post_match
-                header = Header.from_ofx_102_s(header_match[0].strip)
-            
+                header = Header.from_ofx_102_s(header_str)
+
                 parser = OFX::OFX102::Parser.new
 
                 parser.scan_str body
-                
+
                 if parser.documents.length > 1
                     raise NotImplementedError, "Multiple response documents"
                 end
-                
+
                 # require 'pp'
                 # pp parser.ofx_hashes[0]
-                
+
                 document = parser.documents[0]
                 document.header = header
                 document
